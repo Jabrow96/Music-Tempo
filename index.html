@@ -23,6 +23,12 @@
   .note { font-size:0.9rem; color:#333; background:#f2f9ff; padding:8px; border-left:4px solid #79a7ff; margin-top:12px; }
   a.block-link { display:inline-block; margin-top:8px; }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  (function(){
+    emailjs.init("WpbPMDS5LWfBhBCPm"); // Replace with your EmailJS Public Key
+  })();
+</script>
 </head>
 <body>
 <div class="container">
@@ -202,6 +208,25 @@
 </div>
 
 <script>
+function sendResultsByEmail() {
+  const csv = convertToCSV(participantData);
+
+  const templateParams = {
+    to_email: "jabrow96@asu.edu",
+    completion_code: participantData.completionCode,
+    participant_id: participantData.id,
+    version: participantData.version,
+    csv_data: csv
+  };
+
+  emailjs.send("service_w87kaze", "template_apv1j44", templateParams)
+    .then(function(response) {
+       console.log("Email sent!", response.status, response.text);
+    }, function(error) {
+       console.error("Failed to send email:", error);
+    });
+}
+
 const youtubeLinks = {
   slow: 'https://www.youtube.com/watch?v=ABbiWQgpAH8',
   medium: 'https://www.youtube.com/watch?v=wfF0zHeU3Zs',
@@ -362,6 +387,7 @@ function finalizeStudy(){
   participantData.completionCode = 'COMP-' + Math.floor(Math.random()*1000000);
   $('completionCode').textContent = participantData.completionCode;
   showPage('page-debrief');
+  sendResultsByEmail(); // <-- sends automatically
 }
 
 function showPage(id){
