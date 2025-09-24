@@ -321,16 +321,16 @@ function setupBlock(idx){
 
   let instr = '';
   if(block.condition === 'No Music'){
-    instr = 'You will complete the task in silence. Click Start to open the simulator. Focus on hazards and respond as quickly as possible. When finished, return and input the score you got. Please mute the simulator audio on the bottom right.';
+    instr = 'You will complete the task in silence. Click the button to open the simulator. Focus on hazards and respond as quickly as possible. When finished, return and input the score you got. Please mute the audio in the simulator on the bottom right then you open it.';
     $('musicLink').innerHTML = '';
   } else if(block.condition === 'Slow Tempo'){
-    instr = 'You will complete the task while listening to slow-tempo music (Canon in D). Click Start to open the simulator and the music. Focus on hazards and respond as quickly as possible. When finished, return and input the score you got.';
+    instr = 'You will complete the task while listening to slow-tempo music (Canon in D). Click the button to open the simulator, and the link to open the music if it did not popup. Focus on hazards and respond as quickly as possible. When finished, return and input the score you got. Please mute the audio in the simulator on the bottom right then you open it.';
     $('musicLink').innerHTML = '<a class="block-link" href="' + youtubeLinks.slow + '" target="_blank">Open Canon in D on YouTube (opens in new tab)</a>';
   } else if(block.condition === 'Medium Tempo'){
-    instr = 'You will complete the task while listening to medium-tempo music (Fur Elise). Click Start to open the simulator and the music. Focus on hazards and respond as quickly as possible. When finished, return and input the score you got.';
+    instr = 'You will complete the task while listening to medium-tempo music (Fur Elise). Click the button to open the simulator, and the link to open the music if it did not popup. Focus on hazards and respond as quickly as possible. When finished, return and input the score you got. Please mute the audio in the simulator on the bottom right then you open it.';
     $('musicLink').innerHTML = '<a class="block-link" href="' + youtubeLinks.medium + '" target="_blank">Open Für Elise on YouTube (opens in new tab)</a>';
   } else if(block.condition === 'Fast Tempo'){
-    instr = 'You will complete the task while listening to fast-tempo music (Flight of the Bumblebee). Click Start to open the simulator and the music. Focus on hazards and respond as quickly as possible. When finished, return and input the score you got.';
+    instr = 'You will complete the task while listening to fast-tempo music (Flight of the Bumblebee). Click the button to open the simulator, and the link to open the music if it did not popup. Focus on hazards and respond as quickly as possible. When finished, return and input the score you got. Please mute the audio in the simulator on the bottom right then you open it.';
     $('musicLink').innerHTML = '<a class="block-link" href="' + youtubeLinks.fast + '" target="_blank">Open Flight of the Bumblebee on YouTube (opens in new tab)</a>';
   }
 
