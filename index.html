@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Music Tempo and Driving Attention - Study</title>
+<style>
+  body { font-family: Arial, Helvetica, sans-serif; line-height:1.45; margin:20px; color:#111; }
+  .container { max-width:900px; margin:0 auto; }
+  h1,h2 { color:#003366; }
+  .page { display:none; }
+  .visible { display:block; }
+  label { display:block; margin-top:10px; }
+  input[type="text"], input[type="number"], select, textarea { width:100%; padding:8px; margin-top:6px; }
+  .buttons { margin-top:20px; }
+  button { padding:10px 18px; margin-right:8px; }
+  .block-box { border:1px solid #ddd; padding:12px; margin-top:12px; background:#fafafa; }
+  .small { font-size:0.9rem; color:#555; }
+  textarea { min-height:80px; }
+  table { border-collapse:collapse; width:100%; margin-top:12px; }
+  th, td { border:1px solid #ddd; padding:8px; text-align:left; }
+  .center { text-align:center; }
+  .note { font-size:0.9rem; color:#333; background:#f2f9ff; padding:8px; border-left:4px solid #79a7ff; margin-top:12px; }
+  a.block-link { display:inline-block; margin-top:8px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>The Effects of Music Tempo on Driving Attention</h1>
+
+  <!-- Consent -->
+  <div id="page-consent" class="page visible">
+    <h2>Informed Consent</h2>
+    <p><strong>Title of Research:</strong> The Effects of Music Tempo on Driving Attention</p>
+    <p><strong>Principal Investigator:</strong> Jaiden Brown, Arizona State University, jabrow96@asu.edu</p>
+    <p><strong>Additional Investigator:</strong> Rob Gray, PhD, Arizona State University, robgray@asu.edu</p>
+    <p><strong>Institutional Contact:</strong> Institutional Analysis, Arizona State University, 480-965-2318</p>
+
+    <h3>1. Introduction and Purpose of the Study</h3>
+    <p>You are invited to take part in a research study about how listening to music at different speeds (tempos) may affect people’s attention during a reaction-time task. The goal is to understand the connection between music and concentration in everyday activities such as driving.</p>
+
+    <h3>2. Description of the Research</h3>
+    <p>If you agree to participate, you will be asked to:</p>
+    <ul>
+      <li>Provide basic demographic information.</li>
+      <li>Complete a hazard detection/reaction-time task while listening to different music conditions (slow, medium, fast, or no music).</li>
+      <li>Answer brief questions about your attention and workload after each block.</li>
+    </ul>
+    <p>The study will take about 10 to 15 minutes in total.</p>
+
+    <h3>3. Subject Participation</h3>
+    <p>We expect about 20 licensed drivers, ages 18 to 30. You must have normal or corrected-to-normal vision, normal hearing, and use headphones for the study.</p>
+
+    <h3>4. Potential Risks and Discomforts</h3>
+    <p>There are no known risks beyond minor fatigue or distraction. If at any time you feel uncomfortable, you may stop without penalty.</p>
+
+    <h3>5. Potential Benefits and Compensation</h3>
+    <p>You will be compensated $0.30 after completing the study. Your participation may also help researchers better understand how music influences attention and driver safety.</p>
+
+    <p class="note">By clicking "I agree" below you consent to participate. You must be 18 or older and hold a valid driver's license to continue.</p>
+
+    <label><input type="checkbox" id="consentCheckbox"> I have read the information above and agree to participate in this study.</label>
+
+    <div class="buttons">
+      <button id="consentNext" disabled>Continue</button>
+    </div>
+  </div>
+
+  <!-- Demographics -->
+  <div id="page-demo" class="page">
+    <h2>Demographics</h2>
+    <p>Please answer the following questions.</p>
+    <label>Age:
+      <input type="number" id="age" min="18" max="120" placeholder="Enter your age" required>
+    </label>
+    <label>Gender:
+      <select id="gender">
+        <option value="">Select</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Non-binary">Non-binary</option>
+        <option value="Prefer not to say">Prefer not to say</option>
+      </select>
+    </label>
+    <label>Do you have a valid driver's license?
+      <select id="hasLicense">
+        <option value="">Select</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+    </label>
+    <label>How many years have you been driving?
+      <input type="number" id="yearsDriving" min="0" max="100" placeholder="Years driving">
+    </label>
+    <label>How many hours per week do you typically drive?
+      <input type="number" id="hoursDriving" min="0" max="168" placeholder="Hours per week">
+    </label>
+    <label>Do you normally listen to music while driving?
+      <select id="listenMusic">
+        <option value="">Select</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+    </label>
+    <label>If yes, what type(s) of music do you usually listen to?
+      <input type="text" id="musicTypes" placeholder="e.g., Pop, Rock, Classical">
+    </label>
+
+    <div class="buttons">
+      <button id="demoPrev">Back</button>
+      <button id="demoNext">Continue</button>
+    </div>
+  </div>
+
+  <!-- Blocks -->
+  <div id="page-blocks" class="page">
+    <input type="hidden" id="simChoice">
+    <h2>Task Instructions</h2>
+    <div id="blockIntro" class="small">
+      <p>You will complete four short blocks. Each block is one of these conditions: No Music, Slow Tempo, Medium Tempo, or Fast Tempo. The block order is randomized and counterbalanced.</p>
+      <ol>
+        <li>Read the block instructions and click Start.</li>
+        <li>The Start button will open the simulator in a new tab and the YouTube music in another tab for music blocks.</li>
+        <li>Complete the short simulator task and note your score.</li>
+        <li>Return to this page, enter the score, and answer three short questions about the block.</li>
+      </ol>
+      <p class="note">Use headphones and complete the study in a quiet space. Do not refresh the page during a block. If you lose connection, your data may not save.</p>
+    </div>
+
+    <div class="block-box">
+      <h3 id="currentConditionTitle">Condition</h3>
+      <p id="currentConditionInstr"></p>
+
+      <p id="musicLink" class="note"></p>
+
+      <div style="margin-top:10px;">
+        <button id="startBlockBtn">Open Simulator</button>
+      </div>
+
+      <label>Enter the score you received in the simulator (numerical):
+        <input type="number" id="reportedScore" min="0" placeholder="Enter simulator score" />
+      </label>
+
+      <h4>Post-block questions</h4>
+      <label>How focused did you feel? (1 Not at all - 7 Extremely)
+        <select id="focusRating">
+          <option value="">Select</option>
+          <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+          <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </label>
+      <label>How distracting was the music? (1 Not at all - 7 Extremely)
+        <select id="disturbRating">
+          <option value="">Select</option>
+          <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+          <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </label>
+      <label>How mentally demanding was this task? (1 Not at all - 7 Extremely)
+        <select id="demandRating">
+          <option value="">Select</option>
+          <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+          <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="buttons" style="margin-top:12px;">
+      <button id="blockPrev">Back</button>
+      <button id="blockNext">Save Block and Continue</button>
+    </div>
+
+  </div>
+
+  <!-- Debrief -->
+  <div id="page-debrief" class="page">
+    <h2>Debrief and Completion</h2>
+    <p>Thank you for participating in this study.</p>
+    <p>This research aims to investigate the impact of music tempo on attention during a reaction-time task that simulates aspects of driving. Previous studies suggest that music can both help and hinder attention, depending on tempo and task difficulty. By collecting data on simulator scores and self-reported distraction, we hope to better understand how music listening may influence safety-related behaviors.</p>
+
+    <p class="note">Please do not share specific details of this study with others who may participate. You may say you took part in a psychology experiment about attention.</p>
+
+    <p><strong>Your completion code:</strong> <span id="completionCode"></span></p>
+    <p>Use this code to claim your compensation. Copy it now, and paste it in the payment/credit form on the site where you found this study.</p>
+
+    <div style="margin-top:12px;">
+      <button id="downloadCSV">Download your responses (researcher copy)</button>
+      <button id="copyCSV">Copy CSV to clipboard</button>
+      <button id="finishBtn">Finish</button>
+    </div>
+
+    <div id="rawData" style="display:none; margin-top:12px;">
+      <h4>Raw data (for debugging)</h4>
+      <pre id="rawText"></pre>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const youtubeLinks = {
+  slow: 'https://www.youtube.com/watch?v=ABbiWQgpAH8',
+  medium: 'https://www.youtube.com/watch?v=wfF0zHeU3Zs',
+  fast: 'https://www.youtube.com/watch?v=7pt8JpOzGv4'
+};
+
+const simulatorLinks = {
+  slow: 'https://driving-tests.org/defensive-driving-hazard-simulator-1',
+  medium: 'https://driving-tests.org/defensive-driving-hazard-simulator-2',
+  fast: 'https://driving-tests.org/defensive-driving-hazard-simulator-3'
+};
+
+const sequences = {
+  A: ['No Music','Slow Tempo','Medium Tempo','Fast Tempo'],
+  B: ['Slow Tempo','Fast Tempo','No Music','Medium Tempo'],
+  C: ['Medium Tempo','No Music','Fast Tempo','Slow Tempo'],
+  D: ['Fast Tempo','Medium Tempo','Slow Tempo','No Music']
+};
+
+let participantData = {
+  id: 'p' + Date.now() + Math.floor(Math.random()*10000),
+  consent: false,
+  demographics: {},
+  version: null,
+  blockOrder: [],
+  blocks: [],
+  startTime: new Date().toISOString(),
+  completionCode: null
+};
+
+let currentBlockIndex = 0;
+
+function $(id){return document.getElementById(id);}
+
+/* Consent flow */
+$('consentCheckbox').addEventListener('change', function(){
+  $('consentNext').disabled = !this.checked;
+});
+$('consentNext').addEventListener('click', function(){
+  participantData.consent = true;
+  showPage('page-demo');
+});
+
+/* Demographics flow */
+$('demoPrev').addEventListener('click', function(){ showPage('page-consent'); });
+$('demoNext').addEventListener('click', function(){
+  let age = Number($('age').value);
+  let license = $('hasLicense').value;
+  if(!age || age < 18 || license !== 'Yes'){
+    alert('You must be 18 or older and have a valid driver license to continue.');
+    return;
+  }
+  participantData.demographics.age = $('age').value;
+  participantData.demographics.gender = $('gender').value;
+  participantData.demographics.hasLicense = $('hasLicense').value;
+  participantData.demographics.yearsDriving = $('yearsDriving').value;
+  participantData.demographics.hoursDriving = $('hoursDriving').value;
+  participantData.demographics.listenMusic = $('listenMusic').value;
+  participantData.demographics.musicTypes = $('musicTypes').value;
+
+  const versionKeys = Object.keys(sequences);
+  const chosen = versionKeys[Math.floor(Math.random()*versionKeys.length)];
+  participantData.version = chosen;
+  participantData.blockOrder = sequences[chosen].slice();
+
+  participantData.blocks = participantData.blockOrder.map((cond, idx) => ({
+    condition: cond,
+    simLinkUsed: null,
+    reportedScore: null,
+    focusRating: null,
+    distractRating: null,
+    demandRating: null,
+    blockStart: null,
+    blockEnd: null
+  }));
+
+  showPage('page-blocks');
+  setupBlock(currentBlockIndex);
+});
+
+/* block setup */
+function setupBlock(idx){
+  currentBlockIndex = idx;
+  const block = participantData.blocks[idx];
+  $('currentConditionTitle').textContent = 'Block ' + (idx+1) + ': ' + block.condition;
+
+  let instr = '';
+  if(block.condition === 'No Music'){
+    instr = 'You will complete the task in silence. Click Start to open the simulator. Focus on hazards and respond as quickly as possible. When finished, return and input the score you got. Please mute the simulator audio on the bottom right.';
+    $('musicLink').innerHTML = '';
+  } else if(block.condition === 'Slow Tempo'){
+    instr = 'You will complete the task while listening to slow-tempo music (Canon in D). Click Start to open the simulator and the music. Focus on hazards and respond as quickly as possible. When finished, return and input the score you got.';
+    $('musicLink').innerHTML = '<a class="block-link" href="' + youtubeLinks.slow + '" target="_blank">Open Canon in D on YouTube (opens in new tab)</a>';
+  } else if(block.condition === 'Medium Tempo'){
+    instr = 'You will complete the task while listening to medium-tempo music (Fur Elise). Click Start to open the simulator and the music. Focus on hazards and respond as quickly as possible. When finished, return and input the score you got.';
+    $('musicLink').innerHTML = '<a class="block-link" href="' + youtubeLinks.medium + '" target="_blank">Open Für Elise on YouTube (opens in new tab)</a>';
+  } else if(block.condition === 'Fast Tempo'){
+    instr = 'You will complete the task while listening to fast-tempo music (Flight of the Bumblebee). Click Start to open the simulator and the music. Focus on hazards and respond as quickly as possible. When finished, return and input the score you got.';
+    $('musicLink').innerHTML = '<a class="block-link" href="' + youtubeLinks.fast + '" target="_blank">Open Flight of the Bumblebee on YouTube (opens in new tab)</a>';
+  }
+
+  $('currentConditionInstr').textContent = instr;
+  $('reportedScore').value = '';
+  $('focusRating').value = '';
+  $('disturbRating').value = '';
+  $('demandRating').value = '';
+}
+
+/* start block */
+$('startBlockBtn').addEventListener('click', function(){
+  const block = participantData.blocks[currentBlockIndex];
+  let simUrl = '';
+  let simChoiceVal = '';
+
+  if(block.condition === 'Slow Tempo'){ simUrl = simulatorLinks.slow; simChoiceVal = 'sim1'; }
+  else if(block.condition === 'Medium Tempo'){ simUrl = simulatorLinks.medium; simChoiceVal = 'sim2'; }
+  else if(block.condition === 'Fast Tempo'){ simUrl = simulatorLinks.fast; simChoiceVal = 'sim3'; }
+  else if(block.condition === 'No Music'){ simUrl = simulatorLinks.slow; simChoiceVal = 'sim1'; }
+
+  if(simUrl){ window.open(simUrl, '_blank'); block.simLinkUsed = simUrl; $('simChoice').value = simChoiceVal; }
+
+  if(block.condition !== 'No Music'){
+    let ytUrl = youtubeLinks[block.condition.toLowerCase().split(' ')[0]];
+    try{ window.open(ytUrl, '_blank'); } catch(e){ alert('Music popup blocked. Click the link above to play music.'); }
+  }
+
+  block.blockStart = new Date().toISOString();
+});
+
+/* Back / Next behavior */
+$('blockPrev').addEventListener('click', function(){
+  if(currentBlockIndex === 0){ showPage('page-demo'); }
+  else { saveBlockFields(); setupBlock(currentBlockIndex - 1); }
+});
+
+$('blockNext').addEventListener('click', function(){
+  const score = $('reportedScore').value;
+  const focus = $('focusRating').value;
+  const dist = $('disturbRating').value;
+  const dem = $('demandRating').value;
+  if(score === '' || focus === '' || dist === '' || dem === ''){ if(!confirm('You have not completed all fields. Continue?')) return; }
+  saveBlockFields();
+  participantData.blocks[currentBlockIndex].blockEnd = new Date().toISOString();
+  if(currentBlockIndex < participantData.blocks.length -1){ setupBlock(currentBlockIndex + 1); }
+  else { finalizeStudy(); }
+});
+
+function saveBlockFields(){
+  const block = participantData.blocks[currentBlockIndex];
+  block.reportedScore = $('reportedScore').value;
+  block.focusRating = $('focusRating').value;
+  block.distractRating = $('disturbRating').value;
+  block.demandRating = $('demandRating').value;
+}
+
+/* Debrief */
+function finalizeStudy(){
+  participantData.completionCode = 'COMP-' + Math.floor(Math.random()*1000000);
+  $('completionCode').textContent = participantData.completionCode;
+  showPage('page-debrief');
+}
+
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('visible'));
+  $(id).classList.add('visible');
+}
+
+/* CSV export */
+function convertToCSV(obj){
+  const lines = [];
+  const header = ['ParticipantID','Version','BlockIndex','Condition','SimUsed','Score','Focus','Distract','Demand','BlockStart','BlockEnd'];
+  lines.push(header.join(','));
+  obj.blocks.forEach((b,i)=>{
+    lines.push([
+      obj.id,obj.version,i+1,b.condition,b.simLinkUsed,b.reportedScore,b.focusRating,b.distractRating,b.demandRating,b.blockStart,b.blockEnd
+    ].join(','));
+  });
+  return lines.join('\n');
+}
+
+$('downloadCSV').addEventListener('click', function(){
+  const csv = convertToCSV(participantData);
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = participantData.id+'_data.csv';
+  a.click();
+});
+
+$('copyCSV').addEventListener('click', function(){
+  const csv = convertToCSV(participantData);
+  navigator.clipboard.writeText(csv).then(()=>alert('CSV copied to clipboard'));
+});
+
+$('finishBtn').addEventListener('click', function(){
+  alert('Thank you! You may now close this window.');
+});
+
+</script>
+</body>
+</html>
